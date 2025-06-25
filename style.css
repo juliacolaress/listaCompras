@@ -1,0 +1,55 @@
+.item-card {
+    background-color: #fff5fa;
+    border: 1px solid #ffcce7;
+    border-radius: 10px;
+    padding: 10px;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 8px;
+    box-shadow: 0 2px 4px rgba(255, 179, 217, 0.2);
+  }
+  
+  .item-text {
+    display: flex;
+    flex-direction: column;
+    font-size: 13px;
+  }
+  
+  .item-nome {
+    font-weight: bold;
+    color: #d63384;
+    margin: 0;
+  }
+  
+  .item-categoria {
+    color: #cc66a0;
+    margin: 2px 0;
+  }
+  
+  .item-preco {
+    color: #993366;
+    margin: 0;
+  }
+  
+  .remove-btn {
+    background-color: #ffd6e8;
+    border: none;
+    border-radius: 50%;
+    width: 28px;
+    height: 28px;
+    font-size: 14px;
+    line-height: 28px;
+    text-align: center;
+    color: #d63384;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+  }
+  
+  .remove-btn:hover {
+    background-color: #ff99cc;
+    color: white;
+  }
+  

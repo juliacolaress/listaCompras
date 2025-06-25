@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <title>Lista de Compras Avançada</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="container">
+    <h1>🛒 Lista de Compras</h1>
+
+    <form id="form">
+      <input type="text" id="itemInput" placeholder="Item" required>
+      <input type="number" id="precoInput" placeholder="Preço" step="0.01" required>
+      <select id="categoriaInput" required>
+        <option value="" disabled selected>Categoria</option>
+        <option value="Frutas">Frutas</option>
+        <option value="Bebidas">Bebidas</option>
+        <option value="Limpeza">Limpeza</option>
+        <option value="Outros">Outros</option>
+      </select>
+      <button type="submit">Adicionar</button>
+    </form>
+
+    <ul id="lista"></ul>
+
+    <p id="total">💵 Total: R$ 0,00</p>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
+
