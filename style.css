@@ -1,4 +1,115 @@
-.item-card {
+/* básico */
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #fff0f6;
+    display: flex;
+    justify-content: center;
+    padding: 40px 10px;
+    min-height: 100vh;
+    margin: 0;
+  }
+  
+  .container {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+    border: 2px solid #ffcce7;
+  }
+  
+  h1 {
+    text-align: center;
+    color: #d63384;
+    margin-bottom: 20px;
+  }
+  
+  /* formulário */
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-bottom: 20px;
+  }
+  
+  input,
+  select,
+  button {
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 8px;
+    border: 1px solid #ffb3d9;
+  }
+  
+  input:focus,
+  select:focus {
+    outline: none;
+    border-color: #ff66b2;
+    box-shadow: 0 0 4px #ff99cc;
+  }
+  
+  button {
+    background-color: #ff66b2;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: 0.3s;
+    font-weight: bold;
+  }
+  
+  button:hover {
+    background-color: #e0559f;
+  }
+  
+  /* filtro de categorias */
+  .filter-bar {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 15px;
+    gap: 5px;
+    flex-wrap: wrap;
+  }
+  
+  .filter-btn {
+    flex: 1;
+    background-color: #ffd6e8;
+    border: none;
+    border-radius: 8px;
+    color: #d63384;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 6px 8px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .filter-btn.active,
+  .filter-btn:hover {
+    background-color: #ff66b2;
+    color: white;
+  }
+  
+  /* lista */
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  li {
+    opacity: 1;
+    transition: opacity 0.3s ease, transform 0.3s ease;
+    will-change: opacity, transform;
+  }
+  
+  li.removed {
+    opacity: 0;
+    transform: translateX(100%);
+    pointer-events: none;
+  }
+  
+  /* cartão do item */
+  .item-card {
     background-color: #fff5fa;
     border: 1px solid #ffcce7;
     border-radius: 10px;
@@ -34,22 +145,118 @@
     margin: 0;
   }
   
-  .remove-btn {
+  /* botões dentro do item */
+  .item-actions {
+    display: flex;
+    gap: 8px;
+  }
+  
+  .remove-btn,
+  .edit-btn,
+  .save-btn,
+  .cancel-btn {
     background-color: #ffd6e8;
     border: none;
     border-radius: 50%;
     width: 28px;
     height: 28px;
-    font-size: 14px;
+    font-size: 16px;
     line-height: 28px;
     text-align: center;
     color: #d63384;
     cursor: pointer;
-    transition: 0.2s ease-in-out;
+    transition: background-color 0.2s ease-in-out;
   }
   
-  .remove-btn:hover {
+  .remove-btn:hover,
+  .edit-btn:hover,
+  .save-btn:hover {
     background-color: #ff99cc;
     color: white;
+  }
+  
+  .cancel-btn {
+    background-color: #cc4466;
+  }
+  
+  .cancel-btn:hover {
+    background-color: #a02c4a;
+  }
+  
+  /* edição do item */
+  .item-card.edit-mode {
+    gap: 8px;
+  }
+  
+  .item-card.edit-mode input,
+  .item-card.edit-mode select {
+    font-size: 13px;
+    padding: 6px;
+    border-radius: 6px;
+    border: 1px solid #ffb3d9;
+    width: 100%;
+  }
+  
+  /* total */
+  #total {
+    font-weight: bold;
+    margin-top: 20px;
+    font-size: 16px;
+    text-align: center;
+    background-color: #ffe6f0;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px dashed #ff99cc;
+    color: #cc0066;
+  }
+  
+  /* botão limpar lista */
+  .limpar-btn {
+    width: 100%;
+    margin-top: 15px;
+    background-color: #ff66b2;
+    border: none;
+    color: white;
+    padding: 10px;
+    border-radius: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .limpar-btn:hover {
+    background-color: #e0559f;
+  }
+  
+  /* responsividade */
+  @media (max-width: 480px) {
+    .container {
+      padding: 20px 15px;
+    }
+  
+    form input,
+    form select,
+    form button {
+      font-size: 16px;
+      padding: 14px;
+    }
+  
+    .filter-bar {
+      flex-direction: column;
+    }
+  
+    .filter-btn {
+      flex: none;
+      width: 100%;
+    }
+  
+    .item-card {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+  
+    .item-actions {
+      margin-top: 8px;
+    }
   }
   
