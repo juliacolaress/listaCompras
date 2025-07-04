@@ -151,112 +151,44 @@ body {
     gap: 8px;
   }
   
-  .remove-btn,
-  .edit-btn,
-  .save-btn,
-  .cancel-btn {
-    background-color: #ffd6e8;
-    border: none;
-    border-radius: 50%;
-    width: 28px;
-    height: 28px;
-    font-size: 16px;
-    line-height: 28px;
-    text-align: center;
-    color: #d63384;
-    cursor: pointer;
-    transition: background-color 0.2s ease-in-out;
-  }
-  
-  .remove-btn:hover,
-  .edit-btn:hover,
-  .save-btn:hover {
-    background-color: #ff99cc;
-    color: white;
-  }
-  
-  .cancel-btn {
-    background-color: #cc4466;
-  }
-  
-  .cancel-btn:hover {
-    background-color: #a02c4a;
-  }
-  
-  /* edição do item */
-  .item-card.edit-mode {
-    gap: 8px;
-  }
-  
-  .item-card.edit-mode input,
-  .item-card.edit-mode select {
-    font-size: 13px;
-    padding: 6px;
-    border-radius: 6px;
-    border: 1px solid #ffb3d9;
-    width: 100%;
-  }
-  
-  /* total */
-  #total {
-    font-weight: bold;
-    margin-top: 20px;
-    font-size: 16px;
-    text-align: center;
-    background-color: #ffe6f0;
-    padding: 10px;
-    border-radius: 10px;
-    border: 1px dashed #ff99cc;
-    color: #cc0066;
-  }
-  
-  /* botão limpar lista */
-  .limpar-btn {
-    width: 100%;
-    margin-top: 15px;
-    background-color: #ff66b2;
-    border: none;
-    color: white;
-    padding: 10px;
-    border-radius: 12px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  
-  .limpar-btn:hover {
-    background-color: #e0559f;
-  }
-  
-  /* responsividade */
-  @media (max-width: 480px) {
-    .container {
-      padding: 20px 15px;
-    }
-  
-    form input,
-    form select,
-    form button {
-      font-size: 16px;
-      padding: 14px;
-    }
-  
-    .filter-bar {
-      flex-direction: column;
-    }
-  
-    .filter-btn {
-      flex: none;
-      width: 100%;
-    }
-  
-    .item-card {
-      flex-direction: column;
-      align-items: flex-start;
-    }
-  
-    .item-actions {
-      margin-top: 8px;
-    }
-  }
-  
+ /* Ajusta os botões de ação para ficarem menores e com fundo mais suave */
+.remove-btn,
+.edit-btn,
+.save-btn,
+.cancel-btn {
+  background-color: transparent;  /* fundo transparente para não parecer um círculo rosa */
+  border: none;
+  border-radius: 0;  /* remove o círculo */
+  width: auto;
+  height: auto;
+  font-size: 18px;  /* ícones um pouco maiores */
+  padding: 4px 8px;
+  color: #d63384;  /* mantém a cor rosa */
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.remove-btn:hover,
+.edit-btn:hover,
+.save-btn:hover {
+  color: #ff66b2; /* muda a cor no hover para destacar */
+  background-color: transparent;
+}
+
+.cancel-btn {
+  color: #cc4466;
+  background-color: transparent;
+  padding: 4px 8px;
+}
+
+.cancel-btn:hover {
+  color: #a02c4a;
+  background-color: transparent;
+}
+
+/* Para alinhar os botões próximos e lado a lado */
+.item-actions {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+}
