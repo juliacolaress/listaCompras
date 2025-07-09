@@ -203,8 +203,34 @@ filterButtons.forEach(btn => {
     filtroAtivo = btn.getAttribute('data-filter');
     renderizarLista();
   });
+
+  const toggleThemeBtn = document.getElementById('toggleThemeBtn');
+
+function aplicarTema() {
+  const temaSalvo = localStorage.getItem('tema') || 'light';
+
+  document.body.classList.remove('dark-mode');
+
+  if (temaSalvo === 'dark') {
+    document.body.classList.add('dark-mode');
+    toggleThemeBtn.textContent = 'Ativar Modo Claro';
+  } else {
+    toggleThemeBtn.textContent = 'Ativar Modo Escuro';
+  }
+}
+
+aplicarTema();
+
+toggleThemeBtn.addEventListener('click', () => {
+  const temaAtual = localStorage.getItem('tema') || 'light';
+  const novoTema = temaAtual === 'light' ? 'dark' : 'light';
+  localStorage.setItem('tema', novoTema);
+  aplicarTema();
+});
+
 });
 
 // Inicializa mensagem e lista
 atualizarMensagem();
 renderizarLista();
+

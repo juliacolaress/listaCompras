@@ -192,3 +192,36 @@ body {
   gap: 6px;
   align-items: center;
 }
+body {
+  background-color: #fff;
+  color: #222;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+body.dark-mode {
+  background-color: #121212;
+  color: #ddd;
+}
+
+body.dark-mode button {
+  background-color: #333;
+  color: #eee;
+  border: 1px solid #555;
+}
+
+body.dark-mode input,
+body.dark-mode select {
+  background-color: #222;
+  color: #eee;
+  border: 1px solid #555;
+}
+
+body.dark-mode .item-card {
+  background-color: #222;
+  border-color: #444;
+}
+
+body.dark-mode .item-actions button {
+  background-color: #444;
+  color: #eee;
+}
