@@ -7,8 +7,34 @@ const lista = document.getElementById('lista');
 const totalDisplay = document.getElementById('total');
 const limparListaBtn = document.getElementById('limparListaBtn');
 const filterButtons = document.querySelectorAll('.filter-btn');
+const btnAdicionar = form.querySelector('button[type="submit"]'); // botão adicionar
 
-// Função para retornar um emoji baseado na categoria
+// Criando parágrafo para mostrar mensagem do contador
+const contadorMensagem = document.createElement('p');
+contadorMensagem.style.fontStyle = 'italic';
+contadorMensagem.style.color = '#555';
+contadorMensagem.style.marginTop = '5px';
+btnAdicionar.insertAdjacentElement('afterend', contadorMensagem);
+
+// Variável para contador, pega do localStorage ou inicia 0
+let totalCliques = parseInt(localStorage.getItem('totalCliques'), 10) || 0;
+
+// Atualiza texto do botão e mensagem inicial
+btnAdicionar.textContent = `Adicionar (${totalCliques})`;
+function atualizarMensagem() {
+  if (totalCliques === 0) {
+    contadorMensagem.textContent = '';
+  } else if (totalCliques < 5) {
+    contadorMensagem.textContent = 'Continue assim, ótimo começo!';
+  } else if (totalCliques < 10) {
+    contadorMensagem.textContent = 'Você está adicionando vários itens!';
+  } else {
+    contadorMensagem.textContent = 'Uau! Muitos itens adicionados!';
+  }
+}
+atualizarMensagem();
+
+// Função emoji categoria
 function getEmoji(categoria) {
   switch (categoria) {
     case 'Frutas': return '🍎';
@@ -19,33 +45,26 @@ function getEmoji(categoria) {
   }
 }
 
-// Recuperando os itens salvos no localStorage ou um array vazio caso não haja
+// Pega itens do localStorage ou array vazio
 let itens = JSON.parse(localStorage.getItem('itens')) || [];
-
-// Variável para armazenar o filtro ativo
 let filtroAtivo = 'Todas';
 
-// Função para salvar os itens no localStorage
+// Salva itens no localStorage
 function salvarItens() {
   localStorage.setItem('itens', JSON.stringify(itens));
 }
 
-// Função para atualizar o valor total dos itens exibidos
+// Atualiza total exibido
 function atualizarTotal() {
-  // Filtra os itens com base no filtro ativo
   const itensFiltrados = filtroAtivo === 'Todas' ? itens : itens.filter(i => i.categoria === filtroAtivo);
-  // Calcula o total somando os preços dos itens filtrados
-  const total = itensFiltrados.reduce((soma, item) => soma + parseFloat(item.preco), 0);
-  // Exibe o total na tela
+  const total = itensFiltrados.reduce((acc, item) => acc + parseFloat(item.preco), 0);
   totalDisplay.textContent = `💵 Total: R$ ${total.toFixed(2).replace('.', ',')}`;
 }
 
-// Função para criar o elemento HTML de um item da lista
+// Cria elemento HTML do item
 function criarItemElemento(item) {
   const li = document.createElement('li');
-  li.classList.add('fade-in'); // Adiciona a classe de animação de fade-in
-
-  // Adiciona o conteúdo HTML para o item
+  li.classList.add('fade-in');
   li.innerHTML = `
     <div class="item-card" data-id="${item.id}">
       <div class="item-text">
@@ -59,39 +78,26 @@ function criarItemElemento(item) {
       </div>
     </div>
   `;
-
   return li;
 }
 
-// Função para renderizar a lista de itens
+// Renderiza a lista na tela
 function renderizarLista() {
-  lista.innerHTML = ''; // Limpa a lista atual
-
-  // Filtra os itens com base no filtro ativo
-  const itensFiltrados = filtroAtivo === 'Todas'
-    ? itens
-    : itens.filter(item => item.categoria === filtroAtivo);
-
-  // Cria e adiciona os itens filtrados à lista
+  lista.innerHTML = '';
+  const itensFiltrados = filtroAtivo === 'Todas' ? itens : itens.filter(i => i.categoria === filtroAtivo);
   itensFiltrados.forEach(item => {
-    const li = criarItemElemento(item);
-    lista.appendChild(li);
+    lista.appendChild(criarItemElemento(item));
   });
-
-  // Atualiza o total de itens
   atualizarTotal();
 }
 
-// Função para iniciar a edição de um item
+// Inicia edição do item
 function iniciarEdicao(id) {
   const index = itens.findIndex(i => i.id === id);
   if (index === -1) return;
-
   const item = itens[index];
   const li = [...lista.children].find(liElem => liElem.querySelector('.edit-btn').dataset.id === id);
   if (!li) return;
-
-  // Substitui o conteúdo do item por campos editáveis
   li.innerHTML = `
     <div class="item-card edit-mode">
       <input type="text" class="edit-nome" value="${item.nome}">
@@ -110,55 +116,50 @@ function iniciarEdicao(id) {
   `;
 }
 
-// Evento de clique na lista para editar ou remover itens
+// Eventos para editar/remover/salvar/cancelar item
 lista.addEventListener('click', event => {
   const target = event.target;
   const id = target.getAttribute('data-id');
   if (!id) return;
-
   const index = itens.findIndex(i => i.id === id);
   if (index === -1) return;
 
   if (target.classList.contains('edit-btn')) {
-    // Inicia a edição do item
     iniciarEdicao(id);
-
   } else if (target.classList.contains('remove-btn')) {
-    // Remove o item da lista
     const li = target.closest('li');
     li.classList.add('removed');
     setTimeout(() => {
-      itens.splice(index, 1); // Remove o item do array
+      itens.splice(index, 1);
       salvarItens();
       renderizarLista();
     }, 300);
-
   } else if (target.classList.contains('save-btn')) {
-    // Salva as alterações feitas no item
     const li = target.closest('li');
     const nomeEdit = li.querySelector('.edit-nome').value.trim();
     const precoEdit = li.querySelector('.edit-preco').value;
     const categoriaEdit = li.querySelector('.edit-categoria').value;
-
     if (!nomeEdit || !precoEdit || !categoriaEdit) {
       alert('Preencha todos os campos para salvar a edição.');
       return;
     }
-
-    // Atualiza o item no array
     itens[index] = { id, nome: nomeEdit, preco: precoEdit, categoria: categoriaEdit };
     salvarItens();
     renderizarLista();
-
   } else if (target.classList.contains('cancel-btn')) {
-    // Cancela a edição e retorna para a lista original
     renderizarLista();
   }
 });
 
-// Evento para adicionar um novo item ao enviar o formulário
+// Evento para adicionar novo item
 form.addEventListener('submit', event => {
   event.preventDefault();
+
+  // Atualiza contador, botão e mensagem
+  totalCliques++;
+  localStorage.setItem('totalCliques', totalCliques);
+  btnAdicionar.textContent = `Adicionar (${totalCliques})`;
+  atualizarMensagem();
 
   const nome = itemInput.value.trim();
   const preco = precoInput.value;
@@ -169,7 +170,6 @@ form.addEventListener('submit', event => {
     return;
   }
 
-  // Cria um novo item e adiciona ao array
   const novoItem = {
     id: Date.now().toString() + Math.random(),
     nome,
@@ -181,25 +181,23 @@ form.addEventListener('submit', event => {
   salvarItens();
   renderizarLista();
 
-  // Limpa os campos de entrada
   itemInput.value = '';
   precoInput.value = '';
   categoriaInput.value = '';
 });
 
-// Evento para limpar toda a lista de itens
+// Evento para limpar lista
 limparListaBtn.addEventListener('click', () => {
   if (confirm('Tem certeza que deseja limpar toda a lista?')) {
-    itens = []; // Limpa o array de itens
+    itens = [];
     salvarItens();
     renderizarLista();
   }
 });
 
-// Evento para aplicar filtros na lista de itens
+// Eventos para filtros
 filterButtons.forEach(btn => {
   btn.addEventListener('click', () => {
-    // Atualiza o filtro ativo e renderiza a lista novamente
     filterButtons.forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     filtroAtivo = btn.getAttribute('data-filter');
@@ -207,5 +205,6 @@ filterButtons.forEach(btn => {
   });
 });
 
-// Renderiza a lista inicialmente
+// Inicializa mensagem e lista
+atualizarMensagem();
 renderizarLista();
