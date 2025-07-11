@@ -225,3 +225,18 @@ body.dark-mode .item-actions button {
   background-color: #444;
   color: #eee;
 }
+#addBtn2 {  background-color: transparent;  /* fundo transparente para não parecer um círculo rosa */
+  border: none;
+  border-radius: 0;  /* remove o círculo */
+  width: auto;
+  height: auto;
+  font-size: 18px;  /* ícones um pouco maiores */
+  padding: 4px 8px;
+  color: #d63384;  /* mantém a cor rosa */
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+  .lilas-mode { 
+    background-color: #e99fff;
+     color: #ffe6f0; }
